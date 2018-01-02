@@ -31,12 +31,48 @@
         <div> Duration </div>
         </div>
         <div class="song-list">
-        <div class="song">
-        <span class="song-name"></span>
-        <span class="song-artist"></span>
-        <span class="song-album"></span>
-        <span class="song-length"></span>
-        </div>
+                <div class="song" id ="song1">
+                     <span  class="song-name"></span>
+                    <span class="song-artist"></span>
+                    <span class="song-album"></span>
+                    <span class="song-length"></span>
+                </div>
+                
+
+                <div class="song" id="song2">
+                     <span  class="song-name"> </span>
+                     <span class="song-artist"></span>
+                     <span class="song-album"></span>
+                     <span class="song-length"></span>
+                </div>
+
+                <div class="song" id="song3">
+                     <span  class="song-name"> </span>
+                     <span class="song-artist"></span>
+                     <span class="song-album"></span>
+                     <span class="song-length"></span>
+                </div>
+
+                <div class="song" id="song4">
+                     <span class="song-name"> </span>
+                     <span class="song-artist"></span>
+                     <span class="song-album"></span>
+                     <span class="song-length"></span>
+                </div>
+
+                <div class="song" id="song5">
+                     <span class="song-name"> </span>
+                     <span class="song-artist"></span>
+                     <span class="song-album"></span>
+                     <span class="song-length"></span>
+                </div>
+
+                <div class="song" id="song6">
+                     <span class="song-name"> </span>
+                     <span class="song-artist"></span>
+                     <span class="song-album"></span>
+                     <span class="song-length"></span>
+                </div>
         </div>
             </section>
             <footer>
@@ -55,91 +91,13 @@
             </footer>
         </div>
     </div>
-    <script src="jquery.js">
-    </script>
-    <script>
-    function fancyTimeFormat(time)
-    {   
-        // Hours, minutes and seconds
-        var hrs = ~~(time / 3600);
-        var mins = ~~((time % 3600) / 60);
-        var secs = time % 60;
 
-        // Output like "1:01" or "4:03:59" or "123:03:59"
-        var ret = "";
+        <script src="jquery.js">
+        </script>
 
-        if (hrs > 0) {
-            ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
-        }
+        <script src="main.js">
+        </script>
 
-        ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-        ret += "" + secs;
-        return ret;
-    }
-
-
-
-    function toggleSong() {
-        var song = document.querySelector('audio');
-        if(song.paused == true) {
-        console.log('Playing');
-        $('.play-icon').removeClass('fa-play').addClass('fa-pause');
-        song.play();
-        }
-        else {
-        console.log('Pausing');
-        $('.play-icon').removeClass('fa-pause').addClass('fa-play');
-        song.pause();
-        }
-        } 
-
-        function updateCurrentTime() {
-            var song = document.querySelector('audio');
-            var currentTime = Math.floor(song.currentTime);
-            currentTime = fancyTimeFormat(currentTime);
-            var duration = Math.floor(song.duration);
-            duration = fancyTimeFormat(duration)
-            $('.time-elapsed').text(currentTime);
-            $('.song-duration').text(duration);
-        }
-
-      var songName = 'Tera Zikr';
-
-        window.onload = function() {
-        $('.song-name').text(songName);
-        updateCurrentTime(); 
-        setInterval(function() {
-        updateCurrentTime();
-        },1000);
-        }
-
-        
-
-    $('.welcome-screen button').on('click', function() {
-        var name = $('#name-input').val();
-        if (name.length > 2) {
-            var message = "Welcome, " + name;
-            $('.main .user-name').text(message);
-            $('.welcome-screen').addClass('hidden');
-            $('.main').removeClass('hidden');
-        } else {
-            $('#name-input').addClass('error');
-        }
-    });
-
-    $('.play-icon').on('click', function() {
-    toggleSong();
-    });
-
-    $('body').on('keypress',function(event) {
-    if (event.keyCode == 32)
-    {
-    toggleSong();
-    }
-    });
-        
-
-    </script>
 </body>
 
 </html>
