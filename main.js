@@ -1,3 +1,8 @@
+        var currentSongNumber = 1;
+        var willLoop = 0;
+        var willShuffle = 0; // will use this soon
+
+
  var songs = [{
                     'name': 'Tera Zikr',
                     'artist': 'Darshan Raval',
@@ -107,6 +112,11 @@
             $('.song-duration').text(duration);
         }
 
+function timeJump() {
+        var song = document.querySelector('audio')
+        song.currentTime = song.duration - 5;
+}
+
 
 
         function addSongNameClickEvent(songObj,position) {
@@ -151,9 +161,47 @@
                         song.find('.song-length').text(obj.duration);
                         addSongNameClickEvent(obj,i+1);
                     }
-                      
+       
                }
-        
+
+
+// $('audio').on('ended',function() {
+//     var audio = document.querySelector('audio');
+//     if(currentSongNumber < 6) {
+//         var nextSongObj = songs[currentSongNumber];
+//         audio.src = nextSongObj.fileName; // Change Soure
+//         toggleSong(); // Play Next Song
+//         changeCurrentSongDetails(nextSongObj); // Update Image
+//         currentSongNumber = currentSongNumber + 1; // Change State
+//     }
+//     else {
+//         $('.play-icon').removeClass('fa-pause').addClass('fa-play');
+//         audio.currentTime = 0;
+//     }
+// })
+    
+
+    $('audio').on('ended',function() {
+    var audio = document.querySelector('audio');
+    if(currentSongNumber < 6) {
+        var nextSongObj = songs[currentSongNumber];
+        audio.src = nextSongObj.fileName;
+        toggleSong();
+        changeCurrentSongDetails(nextSongObj);
+        currentSongNumber = currentSongNumber + 1;
+    }
+    else if(willLoop == 1) {
+        var nextSongObj = songs[0];
+        audio.src = nextSongObj.fileName;
+        toggleSong();
+        changeCurrentSongDetails(nextSongObj);
+        currentSongNumber =  1;
+    }
+    else {
+        $('.play-icon').removeClass('fa-pause').addClass('fa-play');
+        audio.currentTime = 0;
+    }
+});    
 
     $('.welcome-screen button').on('click', function() {
         var name = $('#name-input').val();
@@ -167,14 +215,29 @@
         }
     });
 
-    $('.play-icon').on('click', function() {
-    toggleSong();
-    });
 
-    $('body').on('keypress',function(event) {
-    if (event.keyCode == 32)
-    {
-    toggleSong();
-    }
-    });
+$('.fa-repeat').on('click',function() {
+        $('.fa-repeat').toggleClass('disabled')
+        willLoop = 1 - willLoop;
+});
+
+$('.fa-random').on('click',function() {
+        $('.fa-random').toggleClass('disabled')
+        willShuffle = 1 - willShuffle;
+});
+
+
+$('.play-icon').on('click', function() {
+        toggleSong();
+});
+
+        
+
+$('body').on('keypress',function(event) {
+        var target = event.target;
+        if (event.keyCode == 32 && target.tagName !='INPUT')
+                {
+                    toggleSong();
+                }
+});
         
