@@ -240,4 +240,56 @@ $('body').on('keypress',function(event) {
                     toggleSong();
                 }
 });
+
+    
+var recognition = new webkitSpeechRecognition();
+
+$('#start_img').on('click', function () {
+    // This will make your browser start
+    // listening to the user
+    recognition.start();
+  }) ;
         
+
+var finalText = '' ;
+    recognition.onresult = function(event) {
+      // First declare a variable which
+      // will hold the text
+
+
+      // Your text may have multiple words
+      // We need to iterate over the results
+      for (var i = event.resultIndex; i < event.results.length; ++i) {
+
+        // speech recognition makes several guesses
+        // we have to check for the final guess and
+        // get the sentence out of it
+        if (event.results[i].isFinal) {
+          finalText += event.results[i][0].transcript;
+        }
+      }
+
+    };
+
+
+recognition.onend = function () {
+      // call wit
+      callWit(finalText) ;
+    }
+
+
+function callWit(text) {
+        $.ajax({
+         url: 'https://api.wit.ai/message',
+         data: {
+           'q': text ,
+           'access_token' : 'BGHHURGPOT2UUUANWPRWPDFKEW66EGWD'
+
+         },
+         dataType: 'jsonp',
+         method: 'GET',
+         success: function(response) {
+             console.log("success!", response);
+         }
+       });
+   }
