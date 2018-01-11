@@ -283,8 +283,7 @@ function callWit(text) {
          url: 'https://api.wit.ai/message',
          data: {
            'q': text ,
-           'access_token' : 'BGHHURGPOT2UUUANWPRWPDFKEW66EGWD'
-
+           'access_token' : // To be accessed from your app
          },
          dataType: 'jsonp',
          method: 'GET',
