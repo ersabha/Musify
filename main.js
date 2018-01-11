@@ -283,12 +283,25 @@ function callWit(text) {
          url: 'https://api.wit.ai/message',
          data: {
            'q': text ,
-           'access_token' : // To be accessed from your app
+           'access_token' : 'BGHHURGPOT2UUUANWPRWPDFKEW66EGWD'
+           
          },
          dataType: 'jsonp',
          method: 'GET',
          success: function(response) {
-             console.log("success!", response);
-         }
+        if(response.entities.intent[0].value == 'play') {
+          // This check is important
+          // As the key might not be present
+          if(response.entities.hasOwnProperty('search_query')) {
+            var songName = response.entities.search_query[0].value ;
+          } else {
+            // We need to move this here as the default
+            changeCurrentSongDetails(songs[0]) ;
+            toggleSong() ;
+          }
+        } else if (response.entities.intent[0].value == 'pause') {
+          toggleSong() ;
+        }
+      }
        });
    }
